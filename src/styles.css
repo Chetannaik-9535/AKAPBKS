@@ -1,0 +1,144 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-saffron: var(--saffron);
+  --color-maroon: var(--maroon);
+  --color-maroon-foreground: var(--maroon-foreground);
+  --color-ring-offset-background: var(--background);
+  --font-sans: "Mukta", "Noto Sans Kannada", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Marcellus", "Noto Serif Kannada", Georgia, serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.981 0.019 90);
+  --foreground: oklch(0.27 0.062 44);
+  --card: oklch(0.995 0.009 90);
+  --card-foreground: oklch(0.27 0.062 44);
+  --popover: oklch(0.995 0.009 90);
+  --popover-foreground: oklch(0.27 0.062 44);
+  --primary: oklch(0.64 0.183 46);
+  --primary-foreground: oklch(0.99 0.012 90);
+  --secondary: oklch(0.94 0.055 88);
+  --secondary-foreground: oklch(0.33 0.077 46);
+  --muted: oklch(0.951 0.036 89);
+  --muted-foreground: oklch(0.5 0.055 55);
+  --accent: oklch(0.83 0.152 82);
+  --accent-foreground: oklch(0.28 0.07 44);
+  --destructive: oklch(0.52 0.19 26);
+  --destructive-foreground: oklch(0.99 0.012 90);
+  --border: oklch(0.87 0.062 82);
+  --input: oklch(0.87 0.062 82);
+  --ring: oklch(0.64 0.183 46);
+  --gold: oklch(0.79 0.148 84);
+  --gold-foreground: oklch(0.28 0.07 44);
+  --saffron: oklch(0.7 0.18 55);
+  --maroon: oklch(0.36 0.11 32);
+  --maroon-foreground: oklch(0.98 0.02 88);
+  --gradient-saffron: linear-gradient(135deg, oklch(0.66 0.19 40), oklch(0.79 0.16 72), oklch(0.86 0.14 92));
+  --gradient-gold: linear-gradient(180deg, oklch(0.9 0.11 92), oklch(0.78 0.15 78));
+  --shadow-temple: 0 18px 40px -22px oklch(0.45 0.13 44 / 0.5);
+  --shadow-soft: 0 6px 20px -12px oklch(0.45 0.13 44 / 0.4);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Clean background for portal pages */
+@utility mandala-bg {
+  position: relative;
+  background-image: url('/assets/mandala_om_bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@utility gold-rule {
+  background: var(--gradient-gold);
+  height: 3px;
+  border-radius: 999px;
+}
+
+@utility panel {
+  background-color: color-mix(in oklab, var(--card) 92%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in-up 0.4s ease-out both;
+}
+
